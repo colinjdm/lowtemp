@@ -6,6 +6,7 @@ figlet = Figlet()
 
 
 def main():
+    # running figlet directly chooses a random font
     f = random.choice(figlet.getFonts())
     figlet.setFont(font=f)
     print(figlet.renderText(input("Text for random font: ")))
