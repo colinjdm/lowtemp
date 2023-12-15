@@ -23,7 +23,7 @@ def main():
         hour = pull_time(time)
         hour, meridiem = get_meridiem(hour)
 
-        print(f"{hour:2}:00{meridiem} {get_color(temp) + snowflakes(temp)}  {temp}")
+        print(f"{hour:2}:00{meridiem} {get_color(temp) + snowflakes(temp) + Fore.RESET}  {temp}")
         #print(f"{key['detailedForecast']}")
         
         # stops displaying temps at noon as long as 6 hours have already been displayed
@@ -32,9 +32,9 @@ def main():
 
 
 def get_color(temp):
-    if temp < 32:
+    if temp <= 32:
         return Fore.RED
-    elif temp < 40:
+    elif temp <= 40:
         return Fore.YELLOW
     else:
         return Fore.GREEN
