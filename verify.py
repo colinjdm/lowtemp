@@ -1,15 +1,16 @@
-from figlet import neat_text
+import figlet
+
 
 def main():
-    neat_text('Verify')
-    print(verify(input("Are you telling the truth? ")))
+    figlet.slant('Verify')
+    verify(input("Are you telling the truth? "))
 
 
 def verify(text):
     if text == 'yes':
-        return 'Verified'
+        print(figlet.small('Congrats, youre verified'))
     else:
-        return 'NOPE'
+        print(figlet.bloody('GET OUT'))
 
 
 if __name__ == "__main__":
