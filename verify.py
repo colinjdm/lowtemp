@@ -1,12 +1,15 @@
-import sys
+from figlet import neat_text
 
 def main():
-    print(verify(input("Text: ")))
+    neat_text('Verify')
+    print(verify(input("Are you telling the truth? ")))
 
 
 def verify(text):
-    if text == 'true':
+    if text == 'yes':
         return 'Verified'
+    else:
+        return 'NOPE'
 
 
 if __name__ == "__main__":
