@@ -13,6 +13,7 @@ def main():
     #pprint(periods)
 
     for i, key in enumerate(periods):
+        # enumerate tracks the number of loops as 'i'
         temp = key['temperature']
         time = key['endTime']
         print(f"At {time} the temperature will be {temp} {snowflakes(temp)}")
@@ -25,9 +26,12 @@ def main():
 
 
 def snowflakes(t):
-    string = f""
+    # adds snowflakes (asterisks) to a string for every 10 degrees of temperature
+    # initialize empty string
+    string = ""
+    # integer division
     temp = t // 10
-    for i in range(temp):
+    for _ in range(temp):
         string = string + "*"
     return(string)
 
