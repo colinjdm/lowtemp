@@ -38,8 +38,8 @@ def main():
         #print(f"{key['detailedForecast']}")
         
         # stops displaying temps at noon as long as 6 hours have already been displayed
-        # if hour == 12 and meridiem == 'pm' and i > 6:
-            # break
+        if hour == 12 and meridiem == 'pm' and i > 6:
+            break
 
 
 def get_color(temp):
