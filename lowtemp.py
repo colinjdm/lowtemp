@@ -14,21 +14,32 @@ def main():
     # second request to obtain forecast
     forecast = requests.get(r.json()['properties']['forecastHourly'])
     periods = (forecast.json()['properties']['periods'])
-    #pprint(periods)
+    # pprint(periods)
 
     for i, key in enumerate(periods):
         # enumerate will track the number of loops as 'i'
         temp = key['temperature']
         time = key['startTime']
+        fc = key['shortForecast']
+        precipitation = key['probabilityOfPrecipitation']['value']
+        #print(precipitation)
+        
+        if precipitation < 10:
+            rain = ''
+            fc = ''
+        else:
+            rain = f"Precipitation: {precipitation}%"
+
         hour = pull_time(time)
         hour, meridiem = get_meridiem(hour)
 
-        print(f"{hour:2}:00{meridiem} {get_color(temp) + snowflakes(temp) + Fore.RESET}  {temp}")
+        # the variable {fc} can be added later to include a short forecast
+        print(f"{hour:2}:00{meridiem} {get_color(temp) + snowflakes(temp) + Fore.RESET}  {temp}    {Fore.BLUE + rain + Fore.RESET}")
         #print(f"{key['detailedForecast']}")
         
         # stops displaying temps at noon as long as 6 hours have already been displayed
-        if hour == 12 and meridiem == 'pm' and i > 6:
-            break
+        # if hour == 12 and meridiem == 'pm' and i > 6:
+            # break
 
 
 def get_color(temp):
