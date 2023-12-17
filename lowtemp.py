@@ -1,10 +1,12 @@
-# displays low temperature for the next 24 hours
+# displays hourly temperatures from the current time until the next day at noon
 # displays alert if temp is below 40 and/or below 32
+# displays precipitation chance if over 10%
+
 import re
 import requests
 
-# prettyprint for dict formatting
 from colorama import Fore
+# prettyprint for dict formatting
 from pprint import pprint
 
 
@@ -28,13 +30,13 @@ def main():
             rain = ''
             fc = ''
         else:
-            rain = f"Precipitation: {precipitation}%"
+            rain = f"\U0001F4A7 {precipitation}%"
 
         hour = pull_time(time)
         hour, meridiem = get_meridiem(hour)
 
         # the variable {fc} can be added later to include a short forecast
-        print(f"{hour:2}:00{meridiem} {get_color(temp) + snowflakes(temp) + Fore.RESET}  {temp}    {Fore.BLUE + rain + Fore.RESET}")
+        print(f"{hour:2}:00 {meridiem} {get_color(temp) + snowflakes(temp) + Fore.RESET}  {temp}    {Fore.BLUE + rain + Fore.RESET}")
         #print(f"{key['detailedForecast']}")
         
         # stops displaying temps at noon as long as 6 hours have already been displayed
@@ -52,7 +54,7 @@ def get_color(temp):
 
 
 def get_meridiem(hour):
-    # allows converting from world time to meridiem
+    # allows converting from 24-hour time to 12-hour time
     if hour == 0:
         meridiem = 'am'
         hour = 12
@@ -77,7 +79,7 @@ def pull_time(s):
 
 def snowflakes(t):
     # a crude graph
-    # adds snowflakes (asterisks) to a string for every 10 degrees of temperature
+    # adds blocks to a string for every 10 degrees of temperature
     string = ""
     # integer division
     temp = t // 2
