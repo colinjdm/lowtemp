@@ -36,7 +36,7 @@ def main():
         hour, meridiem = get_meridiem(hour)
 
         # the variable {fc} can be added later to include a short forecast
-        print(f"{hour:2}:00 {meridiem} {get_color(temp) + snowflakes(temp) + Fore.RESET}  {temp}    {Fore.BLUE + rain + Fore.RESET}")
+        print(f"{hour:2}:00 {meridiem} {get_color(temp) + graph(temp) + Fore.RESET}  {temp}    {Fore.BLUE + rain + Fore.RESET}")
         #print(f"{key['detailedForecast']}")
         
         # stops displaying temps at noon as long as 6 hours have already been displayed
@@ -77,7 +77,7 @@ def pull_time(s):
     return int(hour)
 
 
-def snowflakes(t):
+def graph(t):
     # a crude graph
     # adds blocks to a string for every 10 degrees of temperature
     string = ""
