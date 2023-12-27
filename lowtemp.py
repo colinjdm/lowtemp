@@ -13,10 +13,12 @@ from pprint import pprint
 def main():
     # initial request to determine location based on lat/long
     r = requests.get('https://api.weather.gov/points/32.6983,-85.6205')
+    print(r)
     # second request to obtain forecast
     forecast = requests.get(r.json()['properties']['forecastHourly'])
+    print(forecast)
     periods = (forecast.json()['properties']['periods'])
-    # pprint(periods)
+    pprint(periods)
 
     for i, key in enumerate(periods):
         # enumerate will track the number of loops as 'i'
