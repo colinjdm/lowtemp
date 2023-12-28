@@ -2,23 +2,36 @@
 # displays alert if temp is below 40 and/or below 32
 # displays precipitation chance if over 10%
 
+import googlemaps
+import os
 import re
 import requests
+import sys
 
 from colorama import Fore
+# dotenv for loading the .env file
+from dotenv import load_dotenv
 # prettyprint for dict formatting
 from pprint import pprint
+
+# load API key from .env
+load_dotenv()
 
 
 def main():
     # initial request to determine location based on lat/long
-    r = requests.get('https://api.weather.gov/points/32.6983,-85.6205')
-    print(r)
-    # second request to obtain forecast
-    forecast = requests.get(r.json()['properties']['forecastHourly'])
-    print(forecast)
-    periods = (forecast.json()['properties']['periods'])
-    pprint(periods)
+    lat, lng, address = geocode()
+    print(lat)
+    print(lng)
+    print(address)
+    try:
+        r = requests.get(f'https://api.weather.gov/points/{lat},{lng}')
+        # second request to obtain forecast
+        forecast = requests.get(r.json()['properties']['forecastHourly'])
+        periods = (forecast.json()['properties']['periods'])
+        #pprint(periods)
+    except Exception:
+        sys.exit('API is not responding')
 
     for i, key in enumerate(periods):
         # enumerate will track the number of loops as 'i'
@@ -26,7 +39,6 @@ def main():
         time = key['startTime']
         fc = key['shortForecast']
         precipitation = key['probabilityOfPrecipitation']['value']
-        #print(precipitation)
         
         if precipitation < 10:
             rain = ''
@@ -45,6 +57,19 @@ def main():
         if hour == 12 and meridiem == 'pm' and i > 6:
             break
 
+def geocode():
+    location = input("Location: ")
+    # load api ket from .env file variable created on line 18
+    api_key = os.getenv('API_KEY')
+    gmaps = googlemaps.Client(key=api_key)
+    # geocode the address
+    geocode_result = gmaps.geocode(location)
+    # save addresss description
+    address = geocode_result[0]['formatted_address']
+    # save address lat and long
+    lat = geocode_result[0]['geometry']['location']['lat']
+    lng = geocode_result[0]['geometry']['location']['lng']
+    return lat, lng, address
 
 def get_color(temp):
     if temp <= 32:
