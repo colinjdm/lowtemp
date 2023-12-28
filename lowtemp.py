@@ -21,9 +21,9 @@ load_dotenv()
 def main():
     # initial request to determine location based on lat/long
     lat, lng, address = geocode()
-    print(lat)
-    print(lng)
-    print(address)
+    print(f"Lat:      {lat}")
+    print(f"Long:    {lng}")
+    print(f"Location: {address}")
     try:
         r = requests.get(f'https://api.weather.gov/points/{lat},{lng}')
         # second request to obtain forecast
