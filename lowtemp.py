@@ -61,12 +61,11 @@ def main():
 
 def geocode():
     location = input("Location: ")
-    # load api ket from .env file variable created on line 18
     api_key = os.getenv('API_KEY')
     gmaps = googlemaps.Client(key=api_key)
     # geocode the address
     geocode_result = gmaps.geocode(location)
-    # save addresss description
+    # save address description
     address = geocode_result[0]['formatted_address']
     # save address lat and long
     lat = geocode_result[0]['geometry']['location']['lat']
