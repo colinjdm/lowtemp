@@ -35,12 +35,12 @@ def test_pull_time():
     assert lowtemp.pull_time('2023-12-22T23:00:00-06:00') == 23
 
 
-def test_snowflakes():
-    assert lowtemp.snowflakes(32) == "\u2588" * 16
-    assert lowtemp.snowflakes(2) == "\u2588" * 1
-    assert lowtemp.snowflakes(33) == "\u2588" * 16
-    assert lowtemp.snowflakes(40) == "\u2588" * 20
-    assert lowtemp.snowflakes(85) == "\u2588" * 42
-    assert lowtemp.snowflakes(-1) == "\u2588" * 0
+def test_graph():
+    assert lowtemp.graph(32) == "\u2588" * 16
+    assert lowtemp.graph(2) == "\u2588" * 1
+    assert lowtemp.graph(33) == "\u2588" * 16
+    assert lowtemp.graph(40) == "\u2588" * 20
+    assert lowtemp.graph(85) == "\u2588" * 42
+    assert lowtemp.graph(-1) == "\u2588" * 0
 
 
