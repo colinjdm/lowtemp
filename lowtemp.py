@@ -24,6 +24,7 @@ def main():
     print(f"Lat:      {lat}")
     print(f"Long:    {lng}")
     print(f"Location: {address}")
+    # suppress errors when the API isn't responding
     try:
         r = requests.get(f'https://api.weather.gov/points/{lat},{lng}')
         # second request to obtain forecast
@@ -57,6 +58,7 @@ def main():
         if hour == 12 and meridiem == 'pm' and i > 6:
             break
 
+
 def geocode():
     location = input("Location: ")
     # load api ket from .env file variable created on line 18
@@ -70,6 +72,7 @@ def geocode():
     lat = geocode_result[0]['geometry']['location']['lat']
     lng = geocode_result[0]['geometry']['location']['lng']
     return lat, lng, address
+
 
 def get_color(temp):
     if temp <= 32:
