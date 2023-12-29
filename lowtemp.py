@@ -27,8 +27,11 @@ def main():
     # suppress errors when the API isn't responding
     try:
         r = requests.get(f'https://api.weather.gov/points/{lat},{lng}')
+        #r = requests.get(f'https://api.weather.gov/points/32.47,-85.49')
+        print(r)
         # second request to obtain forecast
         forecast = requests.get(r.json()['properties']['forecastHourly'])
+        print(forecast)
         periods = (forecast.json()['properties']['periods'])
         #pprint(periods)
     except Exception:
@@ -70,7 +73,7 @@ def geocode():
     # save address lat and long
     lat = geocode_result[0]['geometry']['location']['lat']
     lng = geocode_result[0]['geometry']['location']['lng']
-    return lat, lng, address
+    return round(lat, 4), round(lng, 4), address
 
 
 def get_color(temp):
