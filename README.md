@@ -37,7 +37,11 @@ The program begins by implementing the following libraries:
 - dotenv, to load the API key from the .env file
 - pprint, to help visualize the API json file
 
-The main function of the program begins with the user-input location.  This location is sent to the googlemaps API to request the latitude and longitude of the location.  The lat and long are rounded to four decimal places (per the weather.gov API docs) and then sent to the weather.gov API. This first weather.gov request only serves to convert the latitude and longitude of my location into location data that the API can use.  A second API request is then made using this data, saving it as "forecast".  This forecast is returnded as a json.
+For security, the Googlemaps API key is located within a .env file.  This file is not uploaded to the github repository.
+
+The main function of the program first calls the geocode function.  Geocode begins by asking the user for a location.  This location is sent to the googlemaps API to request the latitude and longitude of the user input.  The API key is also loaded from the .env file in this function.  The lat and long are retrieved from the API, rounded to four decimal places (per the weather.gov API docs), and then returned to the main function.  A short description of the address is also returned, in order to verify that the temperatures being graphed are indeed for the location the user wishes to see.
+
+Returning to the main function, the first weather.gov request only serves to convert the latitude and longitude of my location (returned from googlemaps) into location data that the API can use.  A second API request is then made using this data, saving it as "forecast".  This forecast is returnded as a json.  These API requests are performed within a try-statement to handle any errors returned by the API.  If an error is encountered here, the program exits.
 
 Here a for-loop begins which contains the f-string that will serve as the graph for every hour.  The enumerate function is used to count the number of loops.  This is used later to limit the number of hours that are shown in the graph.
 
@@ -61,6 +65,8 @@ Get_color changes the color of the graph based on the temperature that is curren
 Graph breaks down every temperature into a "bar graph".  This graph is made up of the unicode block character.  Each block represents two degrees.  When printed as a series of blocks, the blocks are seamless and appear as a long rectangle.  The graph!
 
 This color and graph data is then returned to the f-string.  The color must be reset in several places to avoid coloring the whole printed line the same color.
+
+Before the loop is performed again, an if-statement checks to see if the time is 12pm.  If so, and if 6 hours have been displayed, the loop exits.  This ensures that only one evening of temperatures are printed.  Otherwise the full week of hourly temperatures would be printed, which would be far too much information.
 
 #### Next Steps
 
