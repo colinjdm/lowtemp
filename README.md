@@ -20,7 +20,7 @@ However, more data makes this decision easier.  For example, a temperature of 32
 
 Conversely, a low temperature of 35 degrees may indicate that blankets are not necessary. But if rain is expected, it may be necessary to blanket the horses to protect them from heat loss while they are wet.
 
-So the decision was made to include data on an hour basis, visually represented as a cruded bar graph.  The weather.gov API was selected as it provides hourly data for a given location, including temperature and precipitation chance.  This is almost always enough information to make a quick, informed decision about whether to blanket the horses on a given evening.
+So the decision was made to include data on an hourly basis, visually represented as a crude bar graph.  The weather.gov API was selected as it provides hourly data for a given location, including temperature and precipitation chance.  This is almost always enough information to make a quick, informed decision about whether to blanket the horses on a given evening.
 
 #### Application
 
@@ -28,12 +28,16 @@ The LowTemp application is implemented in python.  It is implemented as one file
 
 The program begins by implementing the following libraries:
 
+- googlemaps, to geocode the input location
+- os, to load the API key from the .env file
 - re, to perform a regular expression to pull the date from the API data
 - requests, to request the API data
+- sys, to exit the program if the API is unavailable
 - colorama, to colorize the bar graph
+- dotenv, to load the API key from the .env file
 - pprint, to help visualize the API json file
 
-The main function of the program begins with the API request.  This first requests only serves to convert the latitude and longitude of my location into location data that the API can use.  A second API request is then made using this data, saving it as "forecast".  This forecast is a json.
+The main function of the program begins with the user-input location.  This location is sent to the googlemaps API to request the latitude and longitude of the location.  The lat and long are rounded to four decimal places (per the weather.gov API docs) and then sent to the weather.gov API. This first weather.gov request only serves to convert the latitude and longitude of my location into location data that the API can use.  A second API request is then made using this data, saving it as "forecast".  This forecast is returnded as a json.
 
 Here a for-loop begins which contains the f-string that will serve as the graph for every hour.  The enumerate function is used to count the number of loops.  This is used later to limit the number of hours that are shown in the graph.
 
@@ -60,10 +64,8 @@ This color and graph data is then returned to the f-string.  The color must be r
 
 #### Next Steps
 
-There are several changes that I intend to make to this program.  One is the ability to input any location (via ZIP code or possibly address) and see a weather graph, rather than hardcoding my own address.
+In the future, I'd like to implement a backup weather API in case weather.gov is down.
 
-Secondly, I'd like to implement a backup API in case weather.gov is down.
-
-Lastly, I may implement the Forecast as its own class.  This wouldn't affect the usability of the program, but might allow easier modification in the future.
+Also, I may implement the Forecast as its own class.  This wouldn't affect the usability of the program, but might allow easier modification in the future.
 
 
