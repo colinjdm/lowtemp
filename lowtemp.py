@@ -27,7 +27,6 @@ def main():
     # suppress errors when the API isn't responding
     try:
         r = requests.get(f'https://api.weather.gov/points/{lat},{lng}')
-        #r = requests.get(f'https://api.weather.gov/points/32.47,-85.49')
         print(r)
         # second request to obtain forecast
         forecast = requests.get(r.json()['properties']['forecastHourly'])
@@ -111,7 +110,7 @@ def pull_time(s):
 
 def graph(t):
     # a crude graph
-    # adds blocks to a string for every 10 degrees of temperature
+    # adds blocks to a string for every 2 degrees of temperature
     string = ""
     # integer division
     temp = t // 2
