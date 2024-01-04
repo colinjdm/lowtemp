@@ -26,13 +26,11 @@ def main():
     print(f"Location: {address}")
     # suppress errors when the API isn't responding
     try:
+        # first request to obtain location URL
         r = requests.get(f'https://api.weather.gov/points/{lat},{lng}')
-        print(r)
         # second request to obtain forecast
         forecast = requests.get(r.json()['properties']['forecastHourly'])
-        print(forecast)
         periods = (forecast.json()['properties']['periods'])
-        #pprint(periods)
     except Exception:
         sys.exit('API is not responding')
 
