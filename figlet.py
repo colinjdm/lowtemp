@@ -1,4 +1,5 @@
 import random
+import sys
 
 from pyfiglet import Figlet
 
@@ -7,9 +8,12 @@ figlet = Figlet()
 
 def main():
     # running figlet directly chooses a random font
-    f = random.choice(figlet.getFonts())
+    if len(sys.argv) > 1:
+        f = sys.argv[1]
+    else:
+        f = random.choice(figlet.getFonts())
     figlet.setFont(font=f)
-    print(figlet.renderText(input("Text for random font: ")))
+    print(figlet.renderText(input("Text: ")))
     print(f)
 
 
