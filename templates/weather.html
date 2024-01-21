@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    LowTemp
+{% endblock %}
+
+{% block main %}
+    LowTemp
+    <div>
+        <form action="/" method="POST" style="padding-left: 20px; font-size: 14px;">
+            <input autocomplete="on" class="w-auto" id="search" name="search" placeholder="Location" type="text">
+            <input type="submit" value="Search"></button>
+        </form>
+    </div>
+    <div>
+        {{ address }}
+    </div>
+{% endblock %}
+
