@@ -64,7 +64,6 @@ def main():
             # append web lists with appropriate values every loop
             # make sure lists have same number of values
             web_temps.append(temp)
-            web_times.append(time)
             web_precips.append(precipitation)
 
             if precipitation < 10:
@@ -75,6 +74,7 @@ def main():
 
             hour = pull_time(time)
             hour, meridiem = get_meridiem(hour)
+            web_times.append(f'{hour} {meridiem}')
 
             # the variable {fc} can be added later to include a short forecast
             # print(f"{hour:2}:00 {meridiem} {get_color(temp) + graph(temp) + Fore.RESET}   {temp}\u00B0   {Fore.BLUE + rain + Fore.RESET}")
