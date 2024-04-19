@@ -1,17 +1,18 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    LowTemp
 {% endblock %}
 
 {% block main %}
-    LowTemp
     <div>
         <form action="/" method="POST" style="padding-left: 20px; font-size: 14px;">
             <input autocomplete="on" class="w-auto" id="search" name="search" placeholder="Location" type="text">
             <input type="submit" value="Search"></button>
         </form>
     </div>
+    <h3>
+        Hourly weather for {{ address }}
+    </h3>
     <div>
         <canvas id="myChart"></canvas>
     </div>
@@ -26,17 +27,23 @@
         Chart.defaults.color = '#76ABAE';
 
         new Chart(ctx, {
-            type: 'line',
             data: {
                 labels: {{ web_times | tojson | safe }},
                 datasets: [{
-                    label: 'Hourly Temperatures',
+                    type: 'line',
+                    label: 'Hourly Temperature',
                     data: {{ web_temps | tojson | safe }},
+                    borderWidth: 1
+                }, {
+                    type: 'bar',
+                    label: 'Precipitation Chance',
+                    data: {{ web_precips | tojson | safe }},
                     borderWidth: 1
                 }]
             },
             options: {
-                maintainAspectRatio: true,
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     y: {
                     beginAtZero: true
@@ -46,11 +53,13 @@
         });
     
     </script>
+    <!--
     <div>
         {{ address }} <br>
         {{ web_temps }} <br>
         {{ web_times }} <br>
         {{ web_precips }}
     </div>
+    -->
 {% endblock %}
 

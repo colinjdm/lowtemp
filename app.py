@@ -85,9 +85,9 @@ def main():
                 break
         
         # test prints
-        pprint(web_temps)
-        pprint(web_times)
-        pprint(web_precips)
+        # pprint(web_temps)
+        # pprint(web_times)
+        # pprint(web_precips)
 
         return render_template("weather.html", address=address, web_temps=web_temps, web_times=web_times, web_precips=web_precips)
 
