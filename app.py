@@ -13,8 +13,6 @@ from colorama import Fore
 from dotenv import load_dotenv
 # flask
 from flask import Flask, redirect, render_template, request
-# graph.py defines bokeh graph
-from graph import line_graph
 # prettyprint for dict formatting
 from pprint import pprint
 
