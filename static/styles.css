@@ -1,0 +1,18 @@
+:root {
+    background: #222831;
+}
+
+h2 {
+    color: #76ABAE; /* main title color */
+    text-shadow: 6px 6px 6px #000000;
+}
+
+h3 {
+    color: #76ABAE; /* weather address color */
+    text-shadow: 6px 6px 6px #000000;
+}
+
+#myChart {
+    width: 300px;
+    height: 500px;
+}
