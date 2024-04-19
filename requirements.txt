@@ -1,5 +1,6 @@
 colorama
 Flask
 googlemaps
+gunicorn
 Jinja2
 python-dotenv
