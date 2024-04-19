@@ -1,3 +1,4 @@
-pip install googlemaps
-pip install colorama
-pip install python-dotenv
+Flask
+googlemaps
+Jinja2
+python-dotenv==1.0.0
