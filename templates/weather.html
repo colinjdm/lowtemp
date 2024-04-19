@@ -21,10 +21,10 @@
     <script>
         const ctx = document.getElementById('myChart');
 
-        Chart.defaults.backgroundColor = '#9BD0F5';
-        Chart.defaults.borderColor = '#36A2EB';
-        Chart.defaults.color = '#000';
-        
+        Chart.defaults.backgroundColor = '#76ABAE';
+        Chart.defaults.borderColor = '#76ABAE';
+        Chart.defaults.color = '#76ABAE';
+
         new Chart(ctx, {
             type: 'line',
             data: {
@@ -36,6 +36,7 @@
                 }]
             },
             options: {
+                maintainAspectRatio: true,
                 scales: {
                     y: {
                     beginAtZero: true
