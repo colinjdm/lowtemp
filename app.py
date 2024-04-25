@@ -33,12 +33,9 @@ def main():
         location = request.form.get('search')
         # initial request to determine location based on lat/long
         lat, lng, address = geocode(location)
-        web_times, web_temps = get_weather(lat, lng)
-        pprint(web_times)
-        pprint(web_temps)
-
-        # placeholder
-        web_precips = []
+        web_times, web_temps, web_precips = get_weather(lat, lng)
+        #pprint(web_times)
+        #pprint(web_temps)
 
         # hour = pull_time(time)
         # hour, meridiem = get_meridiem(hour)
