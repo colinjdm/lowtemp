@@ -5,8 +5,6 @@
 import googlemaps
 import os
 import re
-import requests
-import sys
 
 from colorama import Fore
 # dotenv for loading the .env file

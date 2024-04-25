@@ -1,14 +1,20 @@
 import datetime
+import os
 import requests
 import sys
 
+# dotenv for loading the .env file
+from dotenv import load_dotenv
 from pprint import pprint
 
-API_key = 'e1adbe8a851f3f58b8d9dcd898aafacd'
+
+# load API key from .env
+load_dotenv()
 
 def get_weather(lat, lon):
+    api_key = os.getenv('API_key')
     try:
-        r = requests.get(f'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&appid={API_key}&units=imperial')
+        r = requests.get(f'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&appid={api_key}&units=imperial')
         hourly_weather = r.json()['hourly']
     except Exception:
         sys.exit('API is not responding')
