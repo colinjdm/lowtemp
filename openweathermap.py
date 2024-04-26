@@ -26,6 +26,11 @@ def get_weather(lat, lon):
     moon_phase = weather['daily'][0]['moon_phase']
     #print(f'Moon phase: {moon_phase}')
 
+    # timezone check
+    print(weather['timezone'])
+    timezone_offset = weather['timezone_offset']
+    print(timezone_offset)
+
     hourly_temp = []
     hourly_time = []
     hourly_precip = []
@@ -38,7 +43,7 @@ def get_weather(lat, lon):
         hourly_precip.append(precip)
 
         # unix time conversion
-        time = (datetime.datetime.fromtimestamp(key['dt']))
+        time = (datetime.datetime.fromtimestamp(key['dt'] + timezone_offset))
         # pull whatever info is needed from the datetime string
         # currently --> day, month date, time (24hr)
         time = datetime.datetime.strftime(time, '%A, %B %d, %H:00')
@@ -50,8 +55,8 @@ def get_weather(lat, lon):
         # limit to 24 hours
         if i == 24:
             break
-    pprint(hourly_time)
-    pprint(hourly_temp)
+    #pprint(hourly_time)
+    #pprint(hourly_temp)
     return(hourly_time, hourly_temp, hourly_precip)
 
 
