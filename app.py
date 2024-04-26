@@ -34,16 +34,17 @@ def main():
         # initial request to determine location based on lat/long
         lat, lng, address = geocode(location)
         web_times, web_temps, web_precips = get_weather(lat, lng)
-        #pprint(web_times)
+        #pprint(times)
         #pprint(web_temps)
 
         # hour = pull_time(time)
-        # hour, meridiem = get_meridiem(hour)
-        # web_times.append(f'{hour} {meridiem}')
+        # web_times = []
+        # for i in range(len(times)):
+        #    time = get_meridiem(times[i])
+        #    web_times.append(time)
+        # print(web_times)
 
-        # the variable {fc} can be added later to include a short forecast
-        # print(f"{hour:2}:00 {meridiem} {get_color(temp) + graph(temp) + Fore.RESET}   {temp}\u00B0   {Fore.BLUE + rain + Fore.RESET}")
-        # print(f"{key['detailedForecast']}")
+        # web_times.append(f'{hour} {meridiem}')
         
         # stops displaying temps at noon as long as 6 hours have already been displayed
         # if hour == 12 and meridiem == 'pm' and i > 6:
@@ -66,15 +67,6 @@ def geocode(location):
     return round(lat, 4), round(lng, 4), address
 
 
-def get_color(temp):
-    if temp <= 32:
-        return Fore.RED
-    elif temp <= 40:
-        return Fore.YELLOW
-    else:
-        return Fore.GREEN
-
-
 def get_meridiem(hour):
     # allows converting from 24-hour time to 12-hour time
     if hour == 0:
@@ -87,7 +79,8 @@ def get_meridiem(hour):
     else:
         meridiem = 'pm'
         hour = hour - 12
-    return (hour, meridiem)
+    time = (f'{hour} {meridiem}')
+    return (time)
 
 
 def pull_time(s):
@@ -97,17 +90,6 @@ def pull_time(s):
     hour = hour[0].replace(":", "")
     hour = hour.replace("T", "")
     return int(hour)
-
-
-def graph(t):
-    # a crude graph
-    # adds blocks to a string for every 2 degrees of temperature
-    string = ""
-    # integer division
-    temp = t // 2
-    for _ in range(temp):
-        string = string + "\u2588"
-    return(string)
 
 
 if __name__ == "__main__":
