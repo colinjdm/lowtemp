@@ -50,6 +50,8 @@ def get_weather(lat, lon):
         # limit to 24 hours
         if i == 24:
             break
+    pprint(hourly_time)
+    pprint(hourly_temp)
     return(hourly_time, hourly_temp, hourly_precip)
 
 
