@@ -46,7 +46,10 @@ def get_weather(lat, lon):
 
         # hourly temperature
         hourly_temp.append(round(key['temp']))
-    print(f'{len(hourly_time)},{len(hourly_temp)},{len(hourly_precip)}')
+        
+        # limit to 24 hours
+        if i == 24:
+            break
     return(hourly_time, hourly_temp, hourly_precip)
 
 
