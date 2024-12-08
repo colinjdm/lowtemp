@@ -1,36 +1,63 @@
 import datetime
+#import json
+import os
 import requests
+import sys
 
+# dotenv for loading the .env file
+from dotenv import load_dotenv
 from pprint import pprint
 
-API_key = 'e1adbe8a851f3f58b8d9dcd898aafacd'
-lat = 32.73515023952092
-lon = -85.57369718339207
+
+# load API key from .env
+load_dotenv()
 
 def get_weather(lat, lon):
-    r = requests.get(f'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&appid={API_key}')
-    hourly_weather = r.json()['hourly']
+
+    api_key = os.getenv('API_key')
+    try:
+        r = requests.get(f'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&appid={api_key}&units=imperial')
+        weather = r.json()
+        hourly_weather = r.json()['hourly']
+    except Exception:
+        sys.exit('API is not responding')
+
+    # moon phase
+    moon_phase = weather['daily'][0]['moon_phase']
+    #print(f'Moon phase: {moon_phase}')
+
+    # timezone check
+    print(weather['timezone'])
+    timezone_offset = weather['timezone_offset']
+    print(timezone_offset)
 
     hourly_temp = []
     hourly_time = []
+    hourly_precip = []
+
     for i, key in enumerate(hourly_weather):
-        #print(key['dt'])
+
+        # hourly precipitation chance
+        precip = weather['hourly'][i]['pop'] * 100
+        #print(weather['hourly'][i])
+        hourly_precip.append(precip)
 
         # unix time conversion
-        time = (datetime.datetime.fromtimestamp(key['dt']))
-        
-        # pull just the hour from the datetime string
-        # might move this into app.py so I can keep this info moving forward
-        # time = datetime.datetime.strftime(time, '%H')
-
+        time = (datetime.datetime.fromtimestamp(key['dt'] + timezone_offset))
+        # pull whatever info is needed from the datetime string
+        # currently --> day, month date, time (24hr)
+        time = datetime.datetime.strftime(time, '%A, %B %d, %H:00')
         hourly_time.append(time)
 
-        # kelvin to fahrenheit conversion
-        hourly_temp.append(round(((key['temp'] - 273.15) * (9 / 5)) + 32))
-
-        # print debug
-    for i in range(len(hourly_temp)):
-        print(f'{hourly_time[i]}, {hourly_temp[i]} degrees')
+        # hourly temperature
+        hourly_temp.append(round(key['temp']))
+        
+        # limit to 24 hours
+        if i == 24:
+            break
+    #pprint(hourly_time)
+    #pprint(hourly_temp)
+    return(hourly_time, hourly_temp, hourly_precip)
 
 
 if __name__ == "__main__":
