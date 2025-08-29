@@ -46,6 +46,8 @@ def main():
         except Exception:
             sys.exit('API is not responding')
 
+        lines = []
+
         for i, key in enumerate(periods):
             # enumerate will track the number of loops as 'i'
             temp = key['temperature']
@@ -63,14 +65,18 @@ def main():
             hour, meridiem = get_meridiem(hour)
 
             # the variable {fc} can be added later to include a short forecast
-            print(f"{hour:2}:00 {meridiem} {get_color(temp) + graph(temp) + Fore.RESET}   {temp}\u00B0   {Fore.BLUE + rain + Fore.RESET}")
+            line = f"{hour:2}:00 {meridiem} {get_color(temp) + graph(temp) + Fore.RESET}   {temp}\u00B0   {Fore.BLUE + rain + Fore.RESET}"
+            print(line)
+            lines.append(line)
             #print(f"{key['detailedForecast']}")
             
             # stops displaying temps at noon as long as 6 hours have already been displayed
             if hour == 12 and meridiem == 'pm' and i > 6:
                 break
+        
+        bar_graph = "\n".join(lines)
 
-        return render_template("weather.html", address=address)
+        return render_template("weather.html", address=address, bar_graph=bar_graph)
 
 
 def geocode(location):
