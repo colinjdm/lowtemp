@@ -5,18 +5,17 @@
 {% endblock %}
 
 {% block main %}
-    LowTemp
+    <h1 class="page.title">LowTemp</h1>
     <div>
         <form action="/" method="POST" style="padding-left: 20px; font-size: 14px;">
             <input autocomplete="on" class="w-auto" id="search" name="search" placeholder="Location" type="text">
             <input type="submit" value="Search"></button>
         </form>
     </div>
+    </br>
     <div>
         {{ address }}
     </div>
-    <pre>
-        {{ bar_graph }}
-    </pre>
+    <pre>{{ bar_graph|safe }}</pre>
 {% endblock %}
 

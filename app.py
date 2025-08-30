@@ -65,7 +65,7 @@ def main():
             hour, meridiem = get_meridiem(hour)
 
             # the variable {fc} can be added later to include a short forecast
-            line = f"{hour:2}:00 {meridiem} {get_color(temp) + graph(temp) + Fore.RESET}   {temp}\u00B0   {Fore.BLUE + rain + Fore.RESET}"
+            line = f"{hour:2}:00 {meridiem} -- <span style='color:{get_color(temp)};'> {temp}\u00B0  {graph(temp)} </span>  {rain}"
             print(line)
             lines.append(line)
             #print(f"{key['detailedForecast']}")
@@ -94,13 +94,30 @@ def geocode(location):
 
 
 def get_color(temp):
-    if temp <= 32:
-        return Fore.RED
-    elif temp <= 40:
-        return Fore.YELLOW
+    # if temp <= 32:
+    #     return Fore.RED
+    # elif temp <= 40:
+    #     return Fore.YELLOW
+    # else:
+    #     return Fore.GREEN
+    if temp <= 40:
+        # purple
+        return '#AE75DA'
+    elif temp <= 60:
+        # blue
+        return '#187498'
+    elif temp <= 70:
+        # green
+        return '#36AE7C'
+    elif temp <= 80:
+        # green
+        return '#36AE7C'
+    elif temp <= 90:
+        # yellow
+        return '#F9D923'
     else:
-        return Fore.GREEN
-
+        # red
+        return '#EB5353'
 
 def get_meridiem(hour):
     # allows converting from 24-hour time to 12-hour time
@@ -133,7 +150,7 @@ def graph(t):
     # integer division
     temp = t // 2
     for _ in range(temp):
-        string = string + "\u2588"
+        string = string + "\u2587"
     return(string)
 
 
