@@ -1,3 +1,5 @@
 googlemaps
 colorama
 python-dotenv
+Flask
+gunicorn
